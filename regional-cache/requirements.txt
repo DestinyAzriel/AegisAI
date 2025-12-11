@@ -1,0 +1,24 @@
+# AegisAI Regional Cache Requirements
+
+# HTTP server and client
+requests>=2.25.1
+
+# JSON handling
+simplejson>=3.17.2
+
+# For binary diff (would be added in production)
+# bsdiff4>=1.1.4
+
+# For enhanced performance (optional)
+# gunicorn>=20.0.4
+
+# Development and testing
+pytest>=6.2.4
+pytest-cov>=2.12.1
+
+# Type checking
+mypy>=0.910
+
+# Code formatting
+black>=21.5b2
+flake8>=3.9.2

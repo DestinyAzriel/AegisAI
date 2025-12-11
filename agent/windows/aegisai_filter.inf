@@ -1,0 +1,57 @@
+; AegisAI Minifilter Driver Installation File
+; ==========================================
+
+[Version]
+Signature="$Windows NT$"
+Class=ActivityMonitor
+ClassGuid={b86dff51-a31e-4bac-b3cf-e8cfe75c9fc2}
+Provider=%Provider%
+DriverVer=10/29/2025,1.0.0
+CatalogFile=aegisai_filter.cat
+
+[DestinationDirs]
+DefaultDestDir = 12
+
+[DefaultInstall]
+OptionDesc = %ServiceDescription%
+CopyFiles = @aegisai_filter.sys
+
+[DefaultInstall.Services]
+AddService = AegisAIFilter,0x00000002,AegisAIFilter.ServiceInstall
+
+[AegisAIFilter.ServiceInstall]
+DisplayName = %ServiceDisplayName%
+Description = %ServiceDescription%
+ServiceBinary = %12%\aegisai_filter.sys
+ServiceType = 2 ; FILESYSTEM_DRIVER
+StartType = 3 ; demand start
+ErrorControl = 1 ; normal
+LoadOrderGroup = "FSFilter Activity Monitor"
+Dependencies = "FltMgr"
+AddReg = AegisAIFilter.AddRegistry
+
+[AegisAIFilter.AddRegistry]
+HKR,,"DebugFlags",0x00010001,0x0
+HKR,,"SupportedFeatures",0x00010001,0x3
+HKR,,"Altitude",0x00000000,"385100"
+HKR,,"Instances",0x00010000,"%Instance1.Name%"
+
+[Instance1]
+%Instance1.Name% = Instance1.Inst,FLTMGR
+
+[Instance1.Inst]
+Altitude = "385100"
+Flags = 0x0
+
+[SourceDisksNames]
+1 = %DiskId1%,,,
+
+[SourceDisksFiles]
+aegisai_filter.sys = 1,,
+
+[Strings]
+Provider = "AegisAI Security"
+ServiceDisplayName = "AegisAI File System Filter"
+ServiceDescription = "AegisAI kernel-level file system monitoring driver"
+Instance1.Name = "AegisAIFilter"
+DiskId1 = "AegisAI Minifilter Driver Installation Disk"

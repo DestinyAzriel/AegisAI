@@ -1,0 +1,32 @@
+# AegisAI Federated Learning Requirements
+
+# Numerical computing
+numpy>=1.21.0
+
+# HTTP client
+requests>=2.25.1
+
+# Web framework
+flask>=2.0.0
+
+# JSON handling
+simplejson>=3.17.2
+
+# For secure aggregation (would be added in production)
+# syft>=0.7.0
+# tenseal>=0.3.0
+
+# For differential privacy (would be added in production)
+# tensorflow-privacy>=0.8.0
+# opacus>=1.0.0
+
+# Development and testing
+pytest>=6.2.4
+pytest-cov>=2.12.1
+
+# Type checking
+mypy>=0.910
+
+# Code formatting
+black>=21.5b2
+flake8>=3.9.2

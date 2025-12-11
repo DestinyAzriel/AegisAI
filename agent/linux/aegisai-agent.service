@@ -1,0 +1,13 @@
+[Unit]
+Description=AegisAI Linux Endpoint Protection
+After=network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/local/bin/aegisai-agent
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

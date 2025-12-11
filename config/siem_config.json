@@ -1,0 +1,14 @@
+{
+  "connectors": {
+    "primary": {
+      "type": "custom",
+      "enabled": false,
+      "url": "",
+      "api_key": "",
+      "username": "",
+      "password": "",
+      "index": "aegisai"
+    }
+  },
+  "default_connector": "primary"
+}

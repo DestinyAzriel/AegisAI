@@ -1,0 +1,23 @@
+# AegisAI Cloud API Requirements
+
+# Core Dependencies
+aiohttp==3.8.5
+numpy==1.24.3
+lightgbm==3.3.5
+tensorflow==2.13.0
+yara-python==4.3.1
+asyncpg==0.27.0
+aioredis==2.0.1
+
+# Web Framework
+aiohttp==3.8.5
+
+# Database
+asyncpg==0.27.0
+
+# Caching
+aioredis==2.0.1
+
+# Utilities
+pydantic>=1.8.0
+python-dateutil>=2.8.0

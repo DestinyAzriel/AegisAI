@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: aegisai-postgres
+    environment:
+      POSTGRES_USER: aegisai
+      POSTGRES_PASSWORD: aegisai_password
+      POSTGRES_DB: aegisai
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: aegisai-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+  aegisai-api:
+    build: .
+    container_name: aegisai-api
+    ports:
+      - "8443:8443"
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=aegisai
+      - DB_PASSWORD=aegisai_password
+      - DB_NAME=aegisai
+      - REDIS_URL=redis://redis:6379
+      - ENABLE_MTLS=true
+      - SERVER_CERT_PATH=certs/server.crt
+      - CLIENT_CA_CERT_PATH=certs/ca.crt
+    depends_on:
+      - postgres
+      - redis
+    restart: unless-stopped
+    volumes:
+      - ../certs:/app/certs
+
+volumes:
+  postgres_data:
+  redis_data:

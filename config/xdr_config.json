@@ -1,0 +1,114 @@
+{
+  "xdr": {
+    "enabled": true,
+    "correlation_threshold": 0.7,
+    "threat_categories": {
+      "malware": {
+        "weight": 1.0,
+        "severity_mapping": {
+          "low": 0.3,
+          "medium": 0.6,
+          "high": 0.8,
+          "critical": 0.95
+        }
+      },
+      "intrusion": {
+        "weight": 1.2,
+        "severity_mapping": {
+          "low": 0.2,
+          "medium": 0.5,
+          "high": 0.75,
+          "critical": 0.9
+        }
+      },
+      "data_exfiltration": {
+        "weight": 1.5,
+        "severity_mapping": {
+          "low": 0.4,
+          "medium": 0.7,
+          "high": 0.85,
+          "critical": 0.95
+        }
+      },
+      "advanced_persistent_threat": {
+        "weight": 2.0,
+        "severity_mapping": {
+          "low": 0.5,
+          "medium": 0.7,
+          "high": 0.85,
+          "critical": 0.98
+        }
+      }
+    },
+    "automated_responses": {
+      "isolate_endpoint": {
+        "enabled": true,
+        "severity_threshold": "high",
+        "duration": 3600,
+        "notification_required": true
+      },
+      "block_ip": {
+        "enabled": true,
+        "severity_threshold": "medium",
+        "duration": 86400,
+        "notification_required": true
+      },
+      "quarantine_file": {
+        "enabled": true,
+        "severity_threshold": "medium",
+        "notification_required": true
+      },
+      "suspend_user": {
+        "enabled": true,
+        "severity_threshold": "critical",
+        "notification_required": true
+      }
+    },
+    "data_retention": {
+      "endpoint_telemetry_days": 90,
+      "network_telemetry_days": 30,
+      "cloud_telemetry_days": 180,
+      "xdr_correlations_days": 365
+    }
+  },
+  "siem": {
+    "connectors": {
+      "primary": {
+        "type": "splunk",
+        "enabled": true,
+        "url": "https://splunk.company.com:8089",
+        "api_key": "your-splunk-hec-token",
+        "index": "aegisai-security",
+        "xdr_enabled": true
+      },
+      "backup": {
+        "type": "elk",
+        "enabled": false,
+        "url": "https://elasticsearch.company.com:9200",
+        "username": "aegisai_user",
+        "password": "secure_password",
+        "index": "aegisai-security",
+        "xdr_enabled": true
+      }
+    },
+    "default_connector": "primary"
+  },
+  "telemetry": {
+    "collector": {
+      "host": "0.0.0.0",
+      "port": 8081,
+      "database_path": "telemetry.db",
+      "enable_compression": true,
+      "max_batch_size": 1000,
+      "rate_limit_per_minute": 1000
+    },
+    "security": {
+      "api_keys": [
+        "telemetry-api-key-1",
+        "telemetry-api-key-2"
+      ],
+      "max_request_size_kb": 100,
+      "blocked_ips": []
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "refined_backend": {
+    "enabled": true,
+    "api_url": "http://localhost:8080/api/v1",
+    "telemetry_url": "http://localhost:8081/api/v1",
+    "update_url": "http://localhost:8082/api/v1",
+    "api_key": "your_api_key_here",
+    "agent_id": "aegisai_agent_001",
+    "connection_timeout": 30,
+    "retry_attempts": 3,
+    "retry_delay": 5
+  },
+  "cloud_scanning": {
+    "enabled": true,
+    "submit_suspicious_files": true,
+    "submit_unknown_files": true,
+    "submit_clean_files": false,
+    "min_confidence_threshold": 0.5
+  },
+  "telemetry": {
+    "enabled": true,
+    "collect_file_metadata": true,
+    "collect_system_info": true,
+    "collect_performance_metrics": true,
+    "submit_interval": 60,
+    "batch_size": 50
+  },
+  "ml_enhancement": {
+    "enabled": true,
+    "use_cloud_models": true,
+    "fallback_to_local": true,
+    "min_cloud_confidence": 0.8
+  },
+  "signature_updates": {
+    "enabled": true,
+    "update_frequency_hours": 24,
+    "auto_apply_updates": true,
+    "backup_old_signatures": true
+  }
+}

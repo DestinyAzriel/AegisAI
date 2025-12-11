@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  # PostgreSQL database for threat intelligence and agent management
+  postgres:
+    image: postgres:15-alpine
+    container_name: aegisai-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./cloud/api/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - aegisai-network
+    restart: unless-stopped
+
+  # Redis for caching and real-time communication
+  redis:
+    image: redis:7-alpine
+    container_name: aegisai-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - aegisai-network
+    restart: unless-stopped
+
+  # AegisAI Cloud API
+  cloud-api:
+    build: 
+      context: ./cloud/api
+      dockerfile: Dockerfile
+    container_name: aegisai-cloud-api
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=aegisai
+      - DB_PASSWORD=aegisai_password
+      - DB_NAME=aegisai
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - aegisai-network
+    restart: unless-stopped
+
+  # AegisAI ML Service
+  ml-service:
+    build:
+      context: ./cloud/ml
+      dockerfile: Dockerfile
+    container_name: aegisai-ml-service
+    ports:
+      - "8081:8081"
+    environment:
+      - API_URL=http://cloud-api:8080
+    networks:
+      - aegisai-network
+    restart: unless-stopped
+
+networks:
+  aegisai-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  redis_data:

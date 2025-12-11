@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "last_updated": "2025-10-24T00:00:00Z",
+    "signature_count": 1
+  },
+  "signatures": {
+    "eicar_test_signature": {
+      "name": "EICAR Test File",
+      "hash": "44d88612fea8a8f36de82e1278abb02f",
+      "severity": "test",
+      "description": "Standard antivirus test file",
+      "source": "default"
+    }
+  }
+}

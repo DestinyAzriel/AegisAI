@@ -1,0 +1,72 @@
+AEGISAI ANTIVIRUS - COMMAND LINE REFERENCE
+=========================================
+
+BASIC COMMANDS:
+--------------
+
+1. Run basic protection mode:
+   python run_aegisai.py
+
+2. Run full real-time protection:
+   python run_full_protection.py
+
+3. Run using batch files:
+   start_aegisai.bat          - Basic protection
+   run_full_protection.bat    - Full protection
+
+4. Scan specific files:
+   python run_aegisai.py --scan-file "C:\path\to\file.exe"
+
+5. Scan directories:
+   python run_aegisai.py --scan-dir "C:\path\to\directory"
+
+6. Check system status:
+   python run_aegisai.py --status
+
+ADVANCED COMMANDS:
+-----------------
+
+7. Update malware signatures:
+   python run_aegisai.py --update-signatures
+
+8. Check for system updates:
+   python run_aegisai.py --update
+
+9. Activate license:
+   python run_aegisai.py --activate-license "license_key_here"
+
+10. Scan directory recursively:
+    python run_aegisai.py --scan-dir "C:\path\to\directory" --recursive
+
+TEST COMMANDS:
+-------------
+
+11. Run real-time monitoring test:
+    python test_realtime_simple.py
+
+12. Run component test:
+    python simple_component_test.py
+
+13. Run system demo:
+    python system_demo.py
+
+DIRECTORY USAGE:
+---------------
+
+Navigate to AegisAI directory first:
+cd /d D:\AegisAI
+
+Then run any of the commands above.
+
+FEATURES IN FULL PROTECTION MODE:
+--------------------------------
+
+- Real-time file system monitoring
+- Behavioral analysis
+- Process monitoring
+- Predictive threat intelligence
+- Multi-layered threat detection
+- Continuous system surveillance
+
+The full protection system monitors your entire system for suspicious activities
+and provides real-time alerts when potential threats are detected.

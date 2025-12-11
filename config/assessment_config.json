@@ -1,0 +1,39 @@
+{
+  "tools": {
+    "nmap": {
+      "enabled": true,
+      "path": "/usr/bin/nmap",
+      "arguments": "-sV -sC -p-"
+    },
+    "owasp_zap": {
+      "enabled": true,
+      "path": "/usr/bin/zap-cli",
+      "arguments": "scan -r"
+    },
+    "bandit": {
+      "enabled": true,
+      "path": "/usr/bin/bandit",
+      "arguments": "-r ."
+    }
+  },
+  "schedules": {
+    "vulnerability_scans": "weekly",
+    "penetration_tests": "quarterly",
+    "code_reviews": "on_commit"
+  },
+  "remediation": {
+    "auto_assign": true,
+    "priority_threshold": "high",
+    "sla_days": {
+      "critical": 1,
+      "high": 3,
+      "medium": 7,
+      "low": 30
+    }
+  },
+  "reporting": {
+    "format": "json",
+    "storage_path": "/var/assessments/reports",
+    "retention_days": 365
+  }
+}

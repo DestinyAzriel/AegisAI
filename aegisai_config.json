@@ -1,0 +1,21 @@
+{
+  "scan_settings": {
+    "real_time_protection": true,
+    "behavioral_analysis": true,
+    "ai_detection": true
+  },
+  "update_settings": {
+    "auto_update": true,
+    "update_frequency_hours": 24
+  },
+  "logging": {
+    "level": "INFO",
+    "file_logging": true,
+    "max_log_size_mb": 10
+  },
+  "paths": {
+    "quarantine_directory": "quarantine",
+    "signature_database": "signatures.db",
+    "log_directory": "logs"
+  }
+}

@@ -1,0 +1,8 @@
+# AegisAI Core Engine Requirements
+watchdog>=2.1.0
+yara-python>=4.0.0
+requests>=2.25.0
+scikit-learn>=1.0.0
+numpy>=1.21.0
+PyQt5>=5.15.0
+cryptography>=3.4.0

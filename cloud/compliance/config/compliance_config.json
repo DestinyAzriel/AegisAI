@@ -1,0 +1,82 @@
+{
+  "gdpr": {
+    "enabled": true,
+    "data_retention_days": 1825,
+    "consent_required": true,
+    "privacy_notice_url": "https://aegisai.com/privacy",
+    "dpa_required": true,
+    "data_protection_officer": "dpo@aegisai.com"
+  },
+  "ccpa": {
+    "enabled": true,
+    "sale_opt_out": true,
+    "data_retention_days": 1825,
+    "privacy_notice_url": "https://aegisai.com/privacy",
+    "do_not_sell_opt_out": true
+  },
+  "soc2": {
+    "enabled": true,
+    "audit_frequency": "quarterly",
+    "controls": {
+      "security": true,
+      "availability": true,
+      "processing_integrity": true,
+      "confidentiality": true,
+      "privacy": true
+    },
+    "auditor_contact": "audit@aegisai.com"
+  },
+  "iso27001": {
+    "enabled": true,
+    "audit_frequency": "annually",
+    "controls": {
+      "A.5": true,
+      "A.6": true,
+      "A.7": true,
+      "A.8": true,
+      "A.9": true,
+      "A.10": true,
+      "A.11": true,
+      "A.12": true,
+      "A.13": true,
+      "A.14": true,
+      "A.15": true,
+      "A.16": true,
+      "A.17": true,
+      "A.18": true
+    },
+    "certification_body": "iso-cert@aegisai.com"
+  },
+  "hipaa": {
+    "enabled": false,
+    "business_associate_agreement_required": true
+  },
+  "data_inventory": {
+    "categories": [
+      "personal_identifiable_information",
+      "financial_data",
+      "security_logs",
+      "device_information",
+      "network_traffic"
+    ],
+    "retention_policies": {
+      "personal_identifiable_information": 1825,
+      "financial_data": 1825,
+      "security_logs": 365,
+      "device_information": 1825,
+      "network_traffic": 90
+    }
+  },
+  "consent_management": {
+    "cookie_consent": true,
+    "banner_enabled": true,
+    "preferences_stored": true,
+    "withdrawal_process": "https://aegisai.com/consent-withdrawal"
+  },
+  "breach_notification": {
+    "gdpr_notification_hours": 72,
+    "ccpa_notification_days": 30,
+    "contact_email": "privacy@aegisai.com",
+    "notification_template": "templates/breach_notification.txt"
+  }
+}

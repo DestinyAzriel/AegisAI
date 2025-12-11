@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AegisAI</string>
+    <string name="title_activity_main">AegisAI Mobile Protection</string>
+    <string name="device_admin_label">AegisAI Device Admin</string>
+    <string name="device_admin_description">Device admin permissions required for full protection features</string>
+</resources>

@@ -1,0 +1,116 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  database:
+    image: postgres:13
+    container_name: aegisai_database
+    environment:
+      POSTGRES_DB: aegisai
+      POSTGRES_USER: aegisai
+      POSTGRES_PASSWORD: aegisai_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - aegisai_network
+    restart: unless-stopped
+
+  # Redis Cache
+  redis:
+    image: redis:6-alpine
+    container_name: aegisai_redis
+    ports:
+      - "6379:6379"
+    networks:
+      - aegisai_network
+    restart: unless-stopped
+
+  # Cloud Backend API
+  cloud-api:
+    build:
+      context: ./cloud/api
+      dockerfile: Dockerfile
+    container_name: aegisai_cloud_api
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=database
+      - DB_PORT=5432
+      - DB_USER=aegisai
+      - DB_PASSWORD=aegisai_password
+      - DB_NAME=aegisai
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=aegisai_jwt_secret_key
+      - ENCRYPTION_KEY=aegisai_encryption_key_32bytes_long!!
+    depends_on:
+      - database
+      - redis
+    networks:
+      - aegisai_network
+    restart: unless-stopped
+
+  # Machine Learning Service
+  ml-service:
+    build:
+      context: ./cloud/ml
+      dockerfile: Dockerfile
+    container_name: aegisai_ml_service
+    ports:
+      - "8002:8002"
+    environment:
+      - MODEL_DIR=/app/models
+    volumes:
+      - ml_models:/app/models
+    networks:
+      - aegisai_network
+    restart: unless-stopped
+
+  # Static Analyzer Service
+  static-analyzer:
+    build:
+      context: ./cloud/static-analyzer
+      dockerfile: Dockerfile
+    container_name: aegisai_static_analyzer
+    ports:
+      - "8001:8001"
+    networks:
+      - aegisai_network
+    restart: unless-stopped
+
+  # Web Console
+  web-console:
+    build:
+      context: ./web-console
+      dockerfile: Dockerfile
+    container_name: aegisai_web_console
+    ports:
+      - "3000:80"
+    networks:
+      - aegisai_network
+    restart: unless-stopped
+
+  # API Gateway (Load Balancer)
+  api-gateway:
+    build:
+      context: ./cloud/api-gateway
+      dockerfile: Dockerfile
+    container_name: aegisai_api_gateway
+    ports:
+      - "8000:8000"
+    depends_on:
+      - cloud-api
+      - ml-service
+      - static-analyzer
+    networks:
+      - aegisai_network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  ml_models:
+
+networks:
+  aegisai_network:
+    driver: bridge

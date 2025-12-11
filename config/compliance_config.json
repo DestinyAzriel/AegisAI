@@ -1,0 +1,46 @@
+{
+  "gdpr": {
+    "enabled": true,
+    "data_retention_days": 1825,
+    "consent_required": true,
+    "privacy_notice_url": "https://aegisai.com/privacy",
+    "dpa_required": true
+  },
+  "ccpa": {
+    "enabled": true,
+    "sale_opt_out": true,
+    "data_retention_days": 1825,
+    "privacy_notice_url": "https://aegisai.com/privacy"
+  },
+  "soc2": {
+    "enabled": true,
+    "audit_frequency": "quarterly",
+    "controls": {
+      "security": true,
+      "availability": true,
+      "processing_integrity": true,
+      "confidentiality": true,
+      "privacy": true
+    }
+  },
+  "iso27001": {
+    "enabled": true,
+    "audit_frequency": "annually",
+    "controls": {
+      "A.5": true,
+      "A.6": true,
+      "A.7": true,
+      "A.8": true,
+      "A.9": true,
+      "A.10": true,
+      "A.11": true,
+      "A.12": true,
+      "A.13": true,
+      "A.14": true,
+      "A.15": true,
+      "A.16": true,
+      "A.17": true,
+      "A.18": true
+    }
+  }
+}

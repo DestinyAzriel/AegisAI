@@ -1,0 +1,39 @@
+{
+  "connectors": {
+    "primary": {
+      "type": "custom",
+      "enabled": true,
+      "url": "https://siem.example.com/api/v1/events",
+      "api_key": "YOUR_SIEM_API_KEY",
+      "username": "",
+      "password": "",
+      "index": "aegisai",
+      "auth_token": ""
+    },
+    "splunk": {
+      "type": "splunk",
+      "enabled": false,
+      "url": "https://splunk.example.com:8088",
+      "api_key": "YOUR_SPLUNK_HEC_TOKEN",
+      "index": "aegisai"
+    },
+    "elasticsearch": {
+      "type": "elk",
+      "enabled": false,
+      "url": "https://elasticsearch.example.com:9200",
+      "username": "aegisai_user",
+      "password": "YOUR_ELASTIC_PASSWORD",
+      "index": "aegisai"
+    },
+    "qradar": {
+      "type": "qradar",
+      "enabled": false,
+      "url": "https://qradar.example.com",
+      "api_key": "YOUR_QRADAR_API_KEY"
+    }
+  },
+  "default_connector": "primary",
+  "bulk_send_threshold": 10,
+  "retry_attempts": 3,
+  "retry_delay": 5
+}

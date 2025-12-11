@@ -1,0 +1,30 @@
+{
+  "pipeline": {
+    "host": "localhost",
+    "port": 8086,
+    "ssl_enabled": false,
+    "max_events": 10000,
+    "campaign_detection_threshold": 3
+  },
+  "graph": {
+    "node_types": [
+      "event",
+      "device",
+      "file",
+      "process",
+      "network"
+    ],
+    "relationship_types": [
+      "temporal",
+      "file_propagation",
+      "process_hierarchy",
+      "network_communication"
+    ],
+    "time_window_hours": 24
+  },
+  "campaign_detection": {
+    "min_campaign_size": 3,
+    "confidence_threshold": 0.7,
+    "temporal_clustering_enabled": true
+  }
+}

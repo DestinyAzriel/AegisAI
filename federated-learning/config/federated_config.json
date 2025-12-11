@@ -1,0 +1,21 @@
+{
+  "aggregator": {
+    "host": "localhost",
+    "port": 8085,
+    "ssl_enabled": false,
+    "max_clients": 1000,
+    "round_duration": 3600
+  },
+  "privacy": {
+    "epsilon": 1.0,
+    "delta": 1e-05,
+    "clip_norm": 1.0
+  },
+  "model": {
+    "input_shape": [
+      100
+    ],
+    "learning_rate": 0.01,
+    "batch_size": 32
+  }
+}

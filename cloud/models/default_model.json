@@ -1,0 +1,9 @@
+{
+  "model_type": "placeholder",
+  "version": "1.0.0",
+  "features": [
+    "file_size",
+    "byte_entropy"
+  ],
+  "description": "Default placeholder model for demonstration"
+}

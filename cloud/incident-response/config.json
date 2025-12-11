@@ -1,0 +1,20 @@
+{
+  "evidence_dir": "/var/evidence",
+  "playbooks_dir": "playbooks",
+  "notifications": {
+    "email_enabled": true,
+    "slack_enabled": false,
+    "webhook_enabled": true,
+    "webhook_url": "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK"
+  },
+  "containment": {
+    "isolate_endpoint": true,
+    "kill_processes": true,
+    "quarantine_files": true
+  },
+  "siem_integration": {
+    "enabled": true,
+    "siem_url": "https://siem.example.com/api/v1/events",
+    "api_key": "YOUR_SIEM_API_KEY"
+  }
+}

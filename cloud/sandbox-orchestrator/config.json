@@ -1,0 +1,40 @@
+{
+  "sandbox": {
+    "default_timeout": 60,
+    "max_timeout": 300,
+    "memory_limit": "1g",
+    "cpu_limit": "0.5",
+    "network_monitoring": true,
+    "file_monitoring": true,
+    "registry_monitoring": true,
+    "process_monitoring": true
+  },
+  "analysis": {
+    "enable_behavioral_analysis": true,
+    "enable_network_analysis": true,
+    "enable_file_analysis": true,
+    "enable_registry_analysis": true,
+    "enable_memory_analysis": true
+  },
+  "security": {
+    "enable_isolation": true,
+    "enable_resource_limits": true,
+    "enable_timeout_protection": true,
+    "enable_network_restriction": true
+  },
+  "docker": {
+    "base_images": {
+      "windows": "aegisai/windows-sandbox:latest",
+      "linux": "aegisai/linux-sandbox:latest"
+    },
+    "network_mode": "bridge",
+    "auto_remove_containers": true
+  },
+  "logging": {
+    "level": "INFO",
+    "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    "file_logging": true,
+    "max_log_size": "10MB",
+    "backup_count": 5
+  }
+}

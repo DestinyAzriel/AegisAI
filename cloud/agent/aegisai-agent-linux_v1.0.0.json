@@ -1,0 +1,6 @@
+{
+  "agent_type": "placeholder",
+  "platform": "linux",
+  "version": "1.0.0",
+  "description": "Default placeholder agent for linux"
+}

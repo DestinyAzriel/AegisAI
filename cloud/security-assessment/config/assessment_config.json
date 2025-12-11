@@ -1,0 +1,86 @@
+{
+  "tools": {
+    "nmap": {
+      "enabled": true,
+      "path": "/usr/bin/nmap",
+      "arguments": "-sV -sC -p-",
+      "timeout_seconds": 3600
+    },
+    "owasp_zap": {
+      "enabled": true,
+      "path": "/usr/bin/zap-cli",
+      "arguments": "scan -r",
+      "timeout_seconds": 7200
+    },
+    "bandit": {
+      "enabled": true,
+      "path": "/usr/bin/bandit",
+      "arguments": "-r .",
+      "timeout_seconds": 1800
+    },
+    "trivy": {
+      "enabled": true,
+      "path": "/usr/bin/trivy",
+      "arguments": "filesystem .",
+      "timeout_seconds": 3600
+    },
+    "nikto": {
+      "enabled": true,
+      "path": "/usr/bin/nikto",
+      "arguments": "-h",
+      "timeout_seconds": 3600
+    }
+  },
+  "schedules": {
+    "vulnerability_scans": "0 2 * * 0",
+    "penetration_tests": "0 3 1 */3 *",
+    "code_reviews": "on_commit",
+    "infrastructure_audits": "0 4 1 * *",
+    "compliance_audits": "0 5 1 1,4,7,10 *"
+  },
+  "remediation": {
+    "auto_assign": true,
+    "priority_threshold": "medium",
+    "sla_days": {
+      "critical": 1,
+      "high": 3,
+      "medium": 7,
+      "low": 30
+    },
+    "notification_emails": ["security-team@aegisai.com", "it-manager@aegisai.com"]
+  },
+  "reporting": {
+    "format": "json",
+    "storage_path": "/var/assessments/reports",
+    "retention_days": 365,
+    "include_executive_summary": true,
+    "include_technical_details": true,
+    "include_remediation_guidance": true
+  },
+  "integrations": {
+    "jira": {
+      "enabled": true,
+      "url": "https://aegisai.atlassian.net",
+      "username": "security-bot@aegisai.com",
+      "api_token": "YOUR_JIRA_API_TOKEN"
+    },
+    "slack": {
+      "enabled": true,
+      "webhook_url": "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK",
+      "notification_channel": "#security-assessments"
+    },
+    "email": {
+      "enabled": true,
+      "smtp_server": "smtp.aegisai.com",
+      "smtp_port": 587,
+      "sender_email": "assessments@aegisai.com"
+    }
+  },
+  "thresholds": {
+    "high_risk_score": 7.0,
+    "medium_risk_score": 4.0,
+    "low_risk_score": 1.0,
+    "auto_escalate_critical_findings": true,
+    "auto_notify_stakeholders": true
+  }
+}
