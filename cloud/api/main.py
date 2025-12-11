@@ -1301,6 +1301,116 @@ class AegisAICloudBackend:
                 'message': str(e)
             }, status=500)
     
+    async def get_prometheus_metrics(self, request):
+        """Return Prometheus metrics for monitoring"""
+        try:
+            # Gather metrics from various components
+            metrics = []
+            
+            # System metrics
+            metrics.append("# HELP aegisai_system_info AegisAI system information")
+            metrics.append("# TYPE aegisai_system_info gauge")
+            metrics.append(f'aegisai_system_info{{version="1.0.0"}} 1')
+            
+            # Connected agents metrics
+            metrics.append("# HELP aegisai_connected_agents Number of connected agents")
+            metrics.append("# TYPE aegisai_connected_agents gauge")
+            metrics.append(f"aegisai_connected_agents {len(self.connected_agents)}")
+            
+            # Online agents metrics
+            online_agents = len([a for a in self.connected_agents.values() if a.get('status') == 'online'])
+            metrics.append("# HELP aegisai_online_agents Number of online agents")
+            metrics.append("# TYPE aegisai_online_agents gauge")
+            metrics.append(f"aegisai_online_agents {online_agents}")
+            
+            # Threat database metrics
+            metrics.append("# HELP aegisai_threats_total Total number of threats in database")
+            metrics.append("# TYPE aegisai_threats_total gauge")
+            metrics.append(f"aegisai_threats_total {len(self.threat_database)}")
+            
+            # Performance metrics (if available)
+            if PERFORMANCE_MODULES_AVAILABLE and hasattr(performance_optimizer, 'get_metrics'):
+                perf_metrics = performance_optimizer.get_metrics()
+                for metric_name, metric_value in perf_metrics.items():
+                    # Convert metric names to Prometheus format
+                    prom_metric_name = metric_name.replace('.', '_').replace('-', '_')
+                    metrics.append(f"# HELP aegisai_{prom_metric_name} AegisAI {metric_name} metric")
+                    metrics.append(f"# TYPE aegisai_{prom_metric_name} gauge")
+                    metrics.append(f"aegisai_{prom_metric_name} {metric_value}")
+            
+            # Database metrics (if available)
+            if self.db_pool:
+                metrics.append("# HELP aegisai_database_available Database connection availability")
+                metrics.append("# TYPE aegisai_database_available gauge")
+                metrics.append("aegisai_database_available 1")
+            else:
+                metrics.append("# HELP aegisai_database_available Database connection availability")
+                metrics.append("# TYPE aegisai_database_available gauge")
+                metrics.append("aegisai_database_available 0")
+            
+            # Redis metrics (if available)
+            if self.redis_client:
+                metrics.append("# HELP aegisai_redis_available Redis connection availability")
+                metrics.append("# TYPE aegisai_redis_available gauge")
+                metrics.append("aegisai_redis_available 1")
+            else:
+                metrics.append("# HELP aegisai_redis_available Redis connection availability")
+                metrics.append("# TYPE aegisai_redis_available gauge")
+                metrics.append("aegisai_redis_available 0")
+            
+            # Format metrics as plain text
+            metrics_text = "\n".join(metrics) + "\n"
+            
+            # Return metrics with proper content type
+            return web.Response(text=metrics_text, content_type="text/plain; version=0.0.4")
+            
+        except Exception as e:
+            logger.error(f"Error generating Prometheus metrics: {e}")
+            return web.json_response({
+                'status': 'error',
+                'message': str(e)
+            }, status=500)
+    
+    async def get_cluster_status(self, request):
+        """Return cluster status information for multi-node setups"""
+        try:
+            # This is a simplified implementation - in a real cluster environment,
+            # this would query other nodes in the cluster
+            
+            cluster_info = {
+                'status': 'single_node',  # Default to single node
+                'nodes': [],
+                'timestamp': datetime.now().isoformat()
+            }
+            
+            # If we're in a Kubernetes or multi-node environment, we would gather
+            # information about other nodes here
+            
+            # For now, just report the current node
+            current_node = {
+                'id': 'node-1',
+                'hostname': os.uname().nodename if hasattr(os, 'uname') else 'unknown',
+                'status': 'healthy',
+                'role': 'primary',
+                'connected_agents': len(self.connected_agents),
+                'last_heartbeat': datetime.now().isoformat()
+            }
+            
+            cluster_info['nodes'].append(current_node)
+            cluster_info['node_count'] = len(cluster_info['nodes'])
+            
+            return web.json_response({
+                'status': 'success',
+                'cluster_info': cluster_info
+            })
+            
+        except Exception as e:
+            logger.error(f"Error getting cluster status: {e}")
+            return web.json_response({
+                'status': 'error',
+                'message': str(e)
+            }, status=500)
+    
     async def get_threat_intel_statistics(self, request):
         """Get threat intelligence statistics"""
         try:
@@ -1530,6 +1640,12 @@ class AegisAICloudBackend:
         
         # WebSockets for real-time communication
         app.router.add_get('/api/v1/ws', self.websocket_handler)
+        
+        # Prometheus metrics endpoint
+        app.router.add_get('/metrics', self.get_prometheus_metrics)
+        
+        # Cluster status endpoint
+        app.router.add_get('/api/v1/cluster/status', self.get_cluster_status)
         
         # Initialize dashboard API routes if available
         if self.dashboard_api and hasattr(self.dashboard_api, 'setup_routes'):

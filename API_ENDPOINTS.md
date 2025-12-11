@@ -102,6 +102,16 @@ This document lists all available API endpoints in the AegisAI enterprise platfo
 - **GET** `/api/v1/dashboard/endpoints`
 - Retrieve detailed endpoint security dashboard
 
+## Monitoring and Observability
+
+### Prometheus Metrics
+- **GET** `/metrics`
+- Export metrics for Prometheus/Grafana monitoring
+
+### Cluster Status
+- **GET** `/api/v1/cluster/status`
+- View multi-node clustering status (enterprise feature)
+
 ## Authentication and Security
 
 All API endpoints (except agent registration) require authentication using Bearer token in the Authorization header:
