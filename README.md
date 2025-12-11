@@ -258,11 +258,14 @@ Database size: ~10MB signatures
 
 ## 📄 **License**
 
-See `legal/` directory for:
-- End User License Agreement (EULA)
-- Terms of Service (ToS)
-- Privacy Policy
-- Compliance documentation
+Copyright (c) 2025 Aegis Software Solutions. All rights reserved.
+
+This software is proprietary and confidential to Aegis Software Solutions. Unauthorized copying, distribution, or modification of this software is strictly prohibited.
+
+For licensing inquiries and distribution rights, please contact:
+destinymwafulirwa@gmail.com
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
